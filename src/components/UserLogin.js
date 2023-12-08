@@ -5,7 +5,7 @@ import { faFacebookF, faTwitter, faGoogle } from '@fortawesome/free-brands-svg-i
 import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 
-function SellerLogin() {
+function UserLogin() {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -99,7 +99,7 @@ function SellerLogin() {
               </div>
               
               <div style={{marginTop:'-10%'}}>
-                <p className="mb-0">Don't have an account? <Link to="/SellerRegister">Sign Up</Link></p>
+                <p className="mb-0">Don't have an account? <Link to="/UserRegistration">Sign Up</Link></p>
               </div>
             </Card.Body>
           </Card>
@@ -109,5 +109,5 @@ function SellerLogin() {
   );
 }
 
-export default SellerLogin;
+export default UserLogin;
 

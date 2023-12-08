@@ -14,15 +14,19 @@ import ProductDetail from "./components/ProductDetail";
 import SellerDashBoard from "./components/SellerDashBoard";
 import ProductAddPage from "./components/ProductAddPage";
 import Sellers from "./components/Sellers";
+import UserLogin from "./components/UserLogin";
+import UserRegistration from "./components/UserRegistration";
 
 function App() {
   return (
     <>
       <div >
         <NavBar />
-        <div className="content">
+        <div className="content" >
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path='/UserLogin' element={<UserLogin/>}/>
+          <Route path='/UserRegistration' element={<UserRegistration/>}/>
           <Route path="/SellerLogin" element={<SellerLogin />} />
           <Route path="/SellerRegister" element={<SellerRegister />} />
           <Route path="/ProductList" element={<ProductList/>}/>

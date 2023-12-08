@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {
+  Badge,
   Button,
   Container,
   Form,
@@ -35,29 +36,35 @@ function NavBar() {
               <Link className="link1 me-3" to="/">
                 Home
               </Link>
-              <Link className="link1 me-3" to="/SellerRegister">
+              <Link className="link1 me-3" to="/UserRegistration">
                 Register
               </Link>
-              <Link className="link1 me-3" to="/SellerLogin">
+              <Link className="link1 me-3" to="/UserLogin">
                 Login
               </Link>
               <Link className="link1 me-3" to="/ProductList">
                 Products
               </Link>
-              <Link className="link1 me-3" to="/ProductDetail">
+              {/* <Link className="link1 me-3" to="/ProductDetail">
                 Product Detail
-              </Link>
+              </Link> */}
 
               {showSearchBar && (
-                <Form className="d-flex" style={{ marginLeft: "5%" }}>
+                <div  style={{ width:"500px",marginLeft:'100px' }}>
+                <Form className="d-flex">
                   <Form.Control
                     type="search"
                     placeholder="Search"
                     className="me-2"
                     aria-label="Search"
                   />
-                  <Button variant="outline-success">Search</Button>
+                     <i
+                    className="fa-solid fa-magnifying-glass"
+                    style={{ fontSize: "25px", color: "green",marginTop:'7px',marginLeft:'-40px' }}
+                    // onClick={searchBar}
+                  ></i>
                 </Form>
+                </div>
               )}
             </Nav>
             <div style={{ marginRight: "0px" }}>
@@ -75,12 +82,14 @@ function NavBar() {
                     className="fa-solid fa-heart"
                     style={{ fontSize: "30px" }}
                   ></i>
+                  <Badge style={{width:'20px',marginLeft:'-12px',borderRadius:'50%'}} bg="dark">1</Badge>
                 </Link>
                 <Link className="link1 me-3" to="/Cart">
                   <i
                     className="fa-solid fa-cart-shopping"
                     style={{ fontSize: "30px", color: "brown" }}
                   ></i>
+                  <Badge style={{width:'20px',marginLeft:'-12px',borderRadius:'50%'}} bg="dark">1</Badge>
                 </Link>
 
                 {/* User dropdown */}

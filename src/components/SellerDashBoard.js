@@ -1,5 +1,7 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import { Card, Button, Col, Row, Form, Table } from "react-bootstrap";
+import { useLocation } from 'react-router-dom';
+import axios from "axios";
 
 const products1 = [
   {
@@ -22,16 +24,66 @@ const products1 = [
       "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
     price: "$29.99",
   },
+  {
+    id: 2,
+    title:'New Orders',
+    description:
+      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    price: "$29.99",
+  },
+  {
+    id: 2,
+    title:'New Orders',
+    description:
+      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    price: "$29.99",
+  },
+{
+    id: 2,
+    title:'New Orders',
+    description:
+      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+    price: "$29.99",
+  },
 
   // Add more items as needed
 ];
 
-const SellerDashBoard = () => {
-  const [selectedItem, setSelectedItem] = useState(products1);
 
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-    // You can perform actions based on the selected item, e.g., load corresponding data
+
+
+
+const SellerDashboard = () => {
+  const [selectedOption, setSelectedOption] = useState(null);
+  const location = useLocation();
+  const sellerId = location.state && location.state.sellerId;
+  const [selectedItem, setSelectedItem] = useState([]);
+
+  useEffect(() => {
+    if (sellerId) {
+      // Fetch data for the specific seller using the sellerId
+      console.log(sellerId)
+      axios.get(`http://127.0.0.1:8000/api/products/`)
+        .then((response) => {
+          // Handle fetched data for the specific seller
+          console.log(response.data);
+          const sellerProducts = response.data.filter(product => product.seller === sellerId);
+          console.log(sellerProducts)
+          setSelectedItem(sellerProducts)
+          // Set state or perform actions with the seller data
+        })
+        .catch((error) => {
+          console.error('Error fetching seller data: ', error);
+        });
+    }
+  }, [sellerId]);
+
+  // if (sellerId == selectedItem[0].id){
+  //   console.log(selectedItem)
+  // }
+
+  const handleItemClick = (option) => {
+    setSelectedOption(option);
   };
   const [productData, setProductData] = useState({
     title: "",
@@ -40,7 +92,6 @@ const SellerDashBoard = () => {
     images: [],
     price: "",
   });
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProductData({
@@ -48,7 +99,6 @@ const SellerDashBoard = () => {
       [name]: value,
     });
   };
-
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files);
 
@@ -60,14 +110,12 @@ const SellerDashBoard = () => {
       images: imageUrls, // Store image URLs in the state for preview
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     // Perform submission logic using productData state
     console.log("Product data:", productData);
     // You can send this data to an API or perform any other action
   };
-
   const sampleProducts = [
     {
       id: 1,
@@ -92,29 +140,15 @@ const SellerDashBoard = () => {
     },
     // Add more products as needed
   ];
-
-  // State to manage the product data
   const [products, setProducts] = useState(sampleProducts);
 
-  return (
-    <>
-      {" "}
-      <div className="dashboard-container">
-        <div className="sidebar">
-          <h1>Dashboard</h1>
-          <ul>
-            <li onClick={() => handleItemClick("Item 1")}>Item 1</li>
-
-            <li onClick={() => handleItemClick("Item 2")}>Item 2</li>
-
-            <li onClick={() => handleItemClick("Item 3")}>Item 3</li>
-            {/* Add more items as needed */}
-          </ul>
-        </div>
-        <Row>
+  const renderContent = () => {
+    switch (selectedOption) {
+      case "Item 1":
+        return (
           <div className="main-content">
             <Row>
-              {selectedItem.map((item) => (
+              {products1.map((item) => (
                 <Col key={item.id} md={4} className="mb-4">
                   <Card className="card1">
                     <Card.Title>{item.title}</Card.Title>
@@ -126,36 +160,37 @@ const SellerDashBoard = () => {
                     </Card.Body>
                   </Card>
                 </Col>
-              ))}{" "}
+              ))}
             </Row>
           </div>
-          <div
-            className="product-table"
-            style={{ padding: "50px", marginTop: "-70px" }}
-          >
+        );
+      case "Item 2":
+        return (
+          <div className="product-table" style={{ padding: "50px", marginTop: "-50px",width:'900px',marginLeft:'50px' }}>
             <Row>
               <Col>
-                <h1>Product Table</h1>
-                <Table striped bordered hover>
-                  <thead>
+                <h1>Listed Product</h1>
+                <Table striped bordered hover style={{padding:'10px'}}>
+                  {/* Table content */}
+                  <thead >
                     <tr>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Category</th>
-                      <th>Price</th>
-                      <th>Image</th> {/* New column for image */}
+                      <th  style={{backgroundColor:'black',color:'white'}}>ID</th>
+                      <th style={{backgroundColor:'black',color:'white'}}>Name</th>
+                      <th style={{backgroundColor:'black',color:'white'}}>Description</th>
+                      <th style={{backgroundColor:'black',color:'white'}}>Price</th>
+                      <th  style={{backgroundColor:'black',color:'white'}}>Image</th> {/* New column for image */}
                     </tr>
                   </thead>
                   <tbody>
-                    {products.map((product) => (
-                      <tr key={product.id}>
+                    {selectedItem.map((product) => (
+                      <tr key={product.id} style={{height:'50px'}}>
                         <td>{product.id}</td>
-                        <td>{product.title}</td>
-                        <td>{product.category}</td>
+                        <td>{product.name}</td>
+                        <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>
                           <img
-                            src={product.imageUrl}
+                            src="https://via.placeholder.com/150"
                             alt={`Product ${product.id}`}
                             className="product-image"
                           />
@@ -167,12 +202,14 @@ const SellerDashBoard = () => {
               </Col>
             </Row>
           </div>
-        </Row>
-      </div>
-      <div className="product-add-page">
-        <h1>Add Product</h1>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="title">
+        );
+      case "Item 3":
+        return (
+          <div className="product-add-page" style={{marginLeft:'30px'}}>
+            <h1>Add Product</h1>
+            <Form onSubmit={handleSubmit} style={{width:'700px'}}>
+              {/* Form content */}
+              <Form.Group controlId="title">
             <Form.Label>Title</Form.Label>
             <Form.Control
               type="text"
@@ -246,10 +283,50 @@ const SellerDashBoard = () => {
           <Button variant="primary" type="submit">
             Add Product
           </Button>
-        </Form>
+            </Form>
+          </div>
+        );
+      default:
+        return <div className="animie">
+ <div className="cat">
+  <div className="ear ear--left"></div>
+  <div className="ear ear--right"></div>
+  <div className="face">
+    <div className="eye eye--left">
+      <div className="eye-pupil"></div>
+    </div>
+    <div className="eye eye--right">
+      <div className="eye-pupil"></div>
+    </div>
+    <div className="muzzle"></div>
+  </div>
+</div>
+
+
+      </div>
+    }
+  };
+
+  // Rest of the code remains the same
+  
+  return (
+    <>
+      <div className="dashboard-container" >
+        <div className="sidebar">
+          <h1>Dashboard</h1>
+          <ul>
+            <li onClick={() => handleItemClick("Item 1")}>Analytics</li>
+            <li onClick={() => handleItemClick("Item 2")}>Show products</li>
+            <li onClick={() => handleItemClick("Item 3")}>Add products</li>
+            {/* Add more items as needed */}
+          </ul>
+        </div>
+        <Row>
+          {renderContent()}
+        </Row>
       </div>
     </>
   );
 };
 
-export default SellerDashBoard;
+export default SellerDashboard;

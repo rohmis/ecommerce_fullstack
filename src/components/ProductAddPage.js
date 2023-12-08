@@ -1,261 +1,273 @@
-import React, { useState } from "react";
-import { Card, Button, Col, Row, Form, Table } from "react-bootstrap";
+// /* Variables */
+// :root {
+//   --color1: #306D85;
+//   --color2: #D93A54;
+// }
 
-const products1 = [
-  {
-    id: 1,
-    image: "https://via.placeholder.com/150",
-    description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    price: "$19.99",
-  },
-  {
-    id: 2,
-    image: "https://via.placeholder.com/100",
-    description:
-      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    price: "$29.99",
-  },
-  {
-    id: 2,
-    image: "https://via.placeholder.com/100",
-    description:
-      "Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    price: "$29.99",
-  },
+// /* General styles */
+// body {
+//   background-color: var(--color1);
+// }
 
-  // Add more items as needed
-];
+// *,
+// *:before,
+// *:after {
+//   box-sizing: border-box;
+// }
 
-const SellerDashBoard = () => {
-  // Data for the sidebar
-  const [selectedItem, setSelectedItem] = useState(products1);
+// /* Sea */
+// .sea {
+//   margin: 40px auto 0 auto;
+//   overflow: hidden;
+// }
 
-  // Function to handle sidebar item click
-  const handleItemClick = (item) => {
-    setSelectedItem(item);
-    // Additional actions based on the selected item
-  };
+// /* Bubble */
+// .bubble {
+//   position: absolute;
+//   width: 7px;
+//   height: 7px;
+//   border-radius: 50%;
+//   background-color: lighten(var(--color1), 25%);
+//   opacity: 0.9;
+//   animation: bubble1-h-movement 1s ease-in infinite, bubble1-v-movement 300ms ease-in-out infinite alternate, bubble-scale-movement 300ms ease-in-out infinite alternate;
+// }
 
-  // State to manage product form data
-  const [productData, setProductData] = useState({
-    title: "",
-    category: "",
-    description: "",
-    images: [],
-    price: "",
-  });
+// .bubble::after {
+//   position: absolute;
+//   content: "";
+//   width: 7px;
+//   height: 7px;
+//   border-radius: 50%;
+//   background-color: lighten(var(--color1), 25%);
+//   opacity: 0.9;
+//   top: -20px;
+//   left: 100px;
+//   width: 9px;
+//   height: 9px;
+// }
 
-  // Handlers for input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setProductData({
-      ...productData,
-      [name]: value,
-    });
-  };
+// /* Circle Wrapper */
+// .circle-wrapper {
+//   position: relative;
+//   background: linear-gradient(darken(var(--color1), 3%), darken(var(--color1), 12%));
+//   width: 300px;
+//   height: 300px;
+//   margin: 10px auto 0 auto;
+//   overflow: hidden;
+//   z-index: 0;
+//   border-radius: 50%;
+//   padding: 0 50px 0 50px;
+//   border: 6px solid lighten(var(--color1), 10%);
+// }
 
-  const handleImageChange = (e) => {
-    const files = Array.from(e.target.files);
-    const imageUrls = files.map((file) => URL.createObjectURL(file));
+// /* Rest of the code follows similarly translating SCSS to CSS */
 
-    setProductData({
-      ...productData,
-      images: imageUrls,
-    });
-  };
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Product data:", productData);
-    // Code for submitting the product data (e.g., sending it to an API)
-  };
+// /* Submarine Wrapper */
+// .submarine-wrapper {
+//   height: 300px;
+//   width: 300px;
+//   padding: 30px 50px 30px 150px;
+//   margin: 0 auto 0 auto;
+//   animation: diving 3s ease-in-out infinite, diving-rotate 3s ease-in-out infinite;
+// }
 
-  // Sample product data for the table
-  const sampleProducts = [
-    {
-      id: 1,
-      title: "Product 1",
-      category: "Category 1",
-      price: "$50",
-      imageUrl: "https://via.placeholder.com/150", // Example image URL
-    },
-    {
-      id: 2,
-      title: "Product 2",
-      category: "Category 2",
-      price: "$70",
-      imageUrl: "https://via.placeholder.com/150", // Example image URL
-    },
-    {
-      id: 3,
-      title: "Product 3",
-      category: "Category 1",
-      price: "$60",
-      imageUrl: "https://via.placeholder.com/150", // Example image URL
-    },
-    // Add more products as needed
-  ];
+// .submarine-wrapper .submarine-body {
+//   width: 150px;
+//   height: 80px;
+//   position: absolute;
+//   margin-top: 50px;
+//   left: 25px;
+//   background-color: var(--color2);
+//   border-radius: 40px;
+//   background: linear-gradient(var(--color2), darken(var(--color2), 10%));
+// }
 
-  // State to manage the product data for the table
-  const [products, setProducts] = useState(sampleProducts);
+// .submarine-wrapper .submarine-body .light {
+//   position: absolute;
+//   width: 0;
+//   height: 0;
+//   border-style: solid;
+//   border-width: 0 40px 150px 40px;
+//   border-color: transparent transparent lighten(var(--color1), 5%) transparent;
+//   transform: rotate(-50deg);
+//   top: 40px;
+//   left: 99%;
+// }
 
-  return (
-    <div className="dashboard-container">
-      {/* Sidebar */}
-      <div className="sidebar">
-        <h1>Dashboard</h1>
-        <ul>
-          <li onClick={() => handleItemClick("Item 1")}>Item 1</li>
-          <li className="divider"></li>
-          <li onClick={() => handleItemClick("Item 2")}>Item 2</li>
-          <li className="divider"></li>
-          <li onClick={() => handleItemClick("Item 3")}>Item 3</li>
-          {/* Add more items as needed */}
-        </ul>
-      </div>
+// /* ... continue the rest of the translation for .window, .engine, .helix, .hat, .periscope, .leds-wrapper, and other nested elements as needed */
+// .submarine-wrapper .submarine-body .window {
+//   width: 37px;
+//   height: 37px;
+//   position: absolute;
+//   margin-top: 23px;
+//   right: 18px;
+//   background: linear-gradient(darken(var(--color1), 13%), darken(var(--color1), 18%));
+//   border-radius: 50%;
+//   border: 3px solid var(--color2);
+// }
 
-      {/* Main content */}
-      <div className="main-content">
-        {/* Cards based on the selected item */}
-        <Row>
-          {products1.map((item) => (
-            <Col key={item.id} md={4} className="mb-4">
-              <Card className="card1">
-                <Card.Body>
-                  <Card.Text>{item.description}</Card.Text>
-                  <div className="mt-2 py-3">
-                    <strong>{item.price}</strong>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          ))}
-        </Row>
-      </div>
+// .submarine-wrapper .submarine-body .window:after {
+//   content: "";
+//   position: absolute;
+//   margin-top: 3px;
+//   margin-left: 3px;
+//   width: 25px;
+//   height: 25px;
+//   border-radius: 50%;
+//   background-color: transparent;
+//   opacity: 0.8;
+//   border-top: 3px solid white;
+//   transform: rotate(-45deg);
+// }
 
-      {/* Product table */}
-      <div
-        className="product-table"
-        style={{ padding: "50px", marginTop: "-70px" }}
-      >
-        <Row>
-          <Col>
-            <h1>Product Table</h1>
-            <Table striped bordered hover>
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>Title</th>
-                  <th>Category</th>
-                  <th>Price</th>
-                  <th>Image</th>
-                </tr>
-              </thead>
-              <tbody>
-                {products.map((product) => (
-                  <tr key={product.id}>
-                    <td>{product.id}</td>
-                    <td>{product.title}</td>
-                    <td>{product.category}</td>
-                    <td>{product.price}</td>
-                    <td>
-                      <img
-                        src={product.imageUrl}
-                        alt={`Product ${product.id}`}
-                        className="product-image"
-                      />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
-          </Col>
-        </Row>
-      </div>
+// .submarine-wrapper .submarine-body .engine {
+//   width: 30px;
+//   height: 30px;
+//   position: absolute;
+//   margin-top: 32px;
+//   left: 53px;
+//   background-color: darken(var(--color2), 10%);
+//   border-radius: 50%;
+//   border: 5px solid var(--color2);
+// }
 
-      {/* Product add form */}
-      <div className="product-add-page">
-        <h1>Add Product</h1>
-        <Form onSubmit={handleSubmit}>
-          <Form.Group controlId="title">
-            <Form.Label>Title</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter title"
-              name="title"
-              value={productData.title}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
+// .submarine-wrapper .submarine-body .engine:after,
+// .submarine-wrapper .submarine-body .engine:before {
+//   position: absolute;
+//   content: "";
+//   border-radius: 2px;
+//   background-color: white;
+//   animation: spin 900ms linear infinite;
+//   opacity: 0.8;
+// }
 
-          <Form.Group controlId="category">
-            <Form.Label>Category</Form.Label>
-            <Form.Control
-              type="text"
-              placeholder="Enter category"
-              name="category"
-              value={productData.category}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
+// .submarine-wrapper .submarine-body .engine:after {
+//   top: 8px;
+//   width: 20px;
+//   height: 4px;
+// }
 
-          <Form.Group controlId="description">
-            <Form.Label>Description</Form.Label>
-            <Form.Control
-              as="textarea"
-              placeholder="Enter description"
-              name="description"
-              value={productData.description}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
+// .submarine-wrapper .submarine-body .engine:before {
+//   left: 8px;
+//   width: 4px;
+//   height: 20px;
+// }
 
-          <Form.Group controlId="images">
-            <Form.Label>Images</Form.Label>
-            <Form.Control
-              type="file"
-              multiple
-              accept="image/*"
-              onChange={handleImageChange}
-              required
-            />
+// .submarine-wrapper .helix {
+//   width: 30px;
+//   height: 70px;
+//   position: absolute;
+//   margin-top: 55px;
+//   left: 0;
+//   background-color: var(--color2);
+//   border-radius: 7px;
+//   background: linear-gradient(var(--color2), darken(var(--color2), 10%));
+// }
 
-            {/* Display image previews */}
-            <div className="image-preview">
-              {productData.images.map((imageUrl, index) => (
-                <img
-                  key={index}
-                  src={imageUrl}
-                  alt={`Image ${index}`}
-                  className="preview-image"
-                />
-              ))}
-            </div>
-          </Form.Group>
+// .submarine-wrapper .helix:after {
+//   content: "";
+//   position: absolute;
+//   margin-top: 5px;
+//   margin-left: 7px;
+//   width: 17px;
+//   height: 60px;
+//   border-radius: 3px;
+//   background-color: transparent;
+//   opacity: 0.8;
+//   background: linear-gradient(to bottom, var(--color2), var(--color2) 50%, lighten(var(--color2), 15%) 50%, lighten(var(--color2), 15%));
+//   background-size: 100% 20px;
+//   animation: helix-movement 110ms linear infinite;
+// }
 
-          <Form.Group controlId="price">
-            <Form.Label>Price</Form.Label>
-            <Form.Control
-              type="number"
-              placeholder="Enter price"
-              name="price"
-              value={productData.price}
-              onChange={handleInputChange}
-              required
-            />
-          </Form.Group>
+// .submarine-wrapper .hat {
+//   width: 65px;
+//   height: 25px;
+//   position: absolute;
+//   margin-top: 26px;
+//   left: 70px;
+//   background-color: var(--color2);
+//   border-radius: 10px 10px 0 0;
+//   background: linear-gradient(var(--color2), darken(var(--color2), 3%));
+// }
 
-          <Button variant="primary" type="submit">
-            Add Product
-          </Button>
-        </Form>
-      </div>
-    </div>
-  );
-};
+// /* ... continue translating the rest of the code for .periscope, .leds-wrapper, .leds, and their properties and animations */
 
-export default SellerDashBoard;
+// /* Keyframes */
+// @keyframes spin {
+//   100% {
+//     transform: rotate(360deg);
+//   }
+// }
+
+// @keyframes helix-movement {
+//   100% {
+//     background: linear-gradient(to bottom, lighten(var(--color2), 15%) 50%, lighten(var(--color2), 15%), var(--color2), var(--color2) 50%);
+//     background-size: 100% 20px;
+//   }
+// }
+
+// /* Animation keyframes for diving and bubble movements */
+// /* ... Add remaining keyframes for bubble1-h-movement, bubble2-h-movement, bubble1-v-movement, bubble2-v-movement, bubble-scale-movement, light-movement */
+// /* ... Previous CSS code remains unchanged ... */
+
+// /* Animation keyframes for diving and bubble movements */
+
+// @keyframes bubble1-h-movement {
+//   0% {
+//     margin-left: 80%;
+//   }
+//   100% {
+//     margin-left: -100%;
+//   }
+// }
+
+// @keyframes bubble2-h-movement {
+//   0% {
+//     margin-left: 65%;
+//   }
+//   100% {
+//     margin-left: -5%;
+//   }
+// }
+
+// @keyframes bubble1-v-movement {
+//   0% {
+//     margin-top: 115px;
+//   }
+//   100% {
+//     margin-top: 160px;
+//   }
+// }
+
+// @keyframes bubble2-v-movement {
+//   0% {
+//     margin-top: 115px;
+//   }
+//   100% {
+//     margin-top: 90px;
+//   }
+// }
+
+// @keyframes bubble-scale-movement {
+//   0% {
+//     transform: scale(1.4);
+//   }
+//   100% {
+//     transform: scale(0.9);
+//   }
+// }
+
+// @keyframes light-movement {
+//   0% {
+//     transform: rotate(-40deg);
+//   }
+//   50% {
+//     transform: rotate(-70deg);
+//   }
+//   100% {
+//     transform: rotate(-40deg);
+//   }
+// }
+
+// /* ... Add any remaining animations and keyframes as per the SCSS file ... */
