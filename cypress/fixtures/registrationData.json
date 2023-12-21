@@ -1,0 +1,12 @@
+
+{
+    "user_name": "John Doe",
+    "company_name": "ABC Company",
+    "address": "123 Main Street",
+    "pincode": "12345",
+    "contact_number": "1234567890",
+    "website": "www.example.com",
+    "email": "john@example.com",
+    "password": "securepassword"
+  }
+  
